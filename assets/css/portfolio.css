@@ -1,0 +1,55 @@
+/* Page styles — reprises telles quelles du <helmet> de la maquette Claude Design. */
+
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body)}
+a{color:var(--color-accent-700)}
+a:hover{color:var(--color-accent-600)}
+[data-l="en"]{display:none}
+[data-lb="en"]{display:none}
+[data-lg="en"] [data-l="en"]{display:inline}
+[data-lg="en"] [data-lb="en"]{display:block}
+[data-lg="en"] [data-l="fr"]{display:none}
+[data-lg="en"] [data-lb="fr"]{display:none}
+[data-reveal]{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+[data-reveal="in"]{opacity:1;transform:none}
+@media (max-width:1150px){
+  [data-navlinks]{display:none!important}
+}
+@media (max-width:900px){
+  [data-hero]{grid-template-columns:1fr!important}
+  [data-hero-portrait]{max-width:320px}
+  [data-split]{grid-template-columns:1fr!important}
+  [data-timeline-row]{grid-template-columns:1fr!important;gap:8px!important}
+  [data-navlinks]{display:none!important}
+  [data-pad]{padding-left:20px!important;padding-right:20px!important}
+  [data-display]{font-size:44px!important}
+  [data-poster]{font-size:34px!important}
+}
+
+/* Correctif : a:hover ci-dessus (spécificité 0,1,1) l'emporte sur .btn-primary
+   (0,1,0), ce qui repeignait le texte en rouge sur un fond déjà rouge — bouton
+   illisible au survol. On rétablit la couleur du design system. */
+a.btn-primary:hover, a.btn-primary:active { color: var(--color-bg) }
+
+/* Sélecteur de langue — équivaut à langBtn() dans la maquette. */
+.lang-btn{
+  padding:6px 12px;border:0;cursor:pointer;
+  font-family:var(--font-heading);font-weight:800;font-size:12px;letter-spacing:0.06em;
+  background:transparent;color:var(--color-text)
+}
+.lang-btn.is-active{background:var(--color-accent);color:#fff}
+
+/* États :hover — équivalent des attributs style-hover de la maquette.
+   !important parce que la propriété de base est posée en style inline. */
+.cert-course:hover{background:var(--color-accent-100)!important}
+.cert-card:hover{background:var(--color-neutral-200)!important}
+.contact-row:hover{color:var(--color-accent-700)!important}
+
+/* Sections optionnelles (props showReferences / showMobilePreviews de la maquette). */
+[data-references="off"] #references{display:none}
+[data-mobile-previews="off"] #apercu-mobile{display:none}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  [data-reveal]{opacity:1;transform:none;transition:none}
+}

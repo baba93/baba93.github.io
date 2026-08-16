@@ -1,0 +1,7 @@
+# Outillage local (serveur de prévisualisation)
+.claude/
+
+# Systèmes de fichiers
+.DS_Store
+Thumbs.db
+*~
