@@ -46,7 +46,7 @@
     if (lastFocused) lastFocused.focus();
   }
 
-  document.querySelectorAll('a[href^="certificats/"]').forEach(function (link) {
+  document.querySelectorAll('a[data-cert-title]').forEach(function (link) {
     link.addEventListener('click', function (ev) {
       if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button !== 0) return;
       ev.preventDefault();

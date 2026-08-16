@@ -12,7 +12,8 @@ assets/css/design-system.css le design system « Modernist » (tokens + classes 
 assets/css/portfolio.css     les styles de page (bloc <helmet> de la maquette) + états :hover
 assets/js/portfolio.js       bascule FR/EN, visionneuse, apparition au scroll
 assets/*.jpeg|png            portrait et capture DumuniGo
-certificats/*.jpg            diplômes et certificats en image (20 fichiers)
+certificats/*.jpg|png        diplômes, certificats et badges ouverts en visionneuse
+assets/badges/*.png          badges affichés dans la bande « Badges vérifiables »
 sources-pdf/*.pdf            les PDF d'origine — locaux, jamais publiés (.gitignore)
 ```
 
@@ -39,6 +40,20 @@ Puis ajouter le lien dans `index.html` avec son `data-cert-title` :
 ```html
 <a href="certificats/mon-certificat.jpg" data-cert-title="Nom affiché dans la visionneuse">…</a>
 ```
+
+C'est l'attribut `data-cert-title` — et lui seul — qui branche un lien sur la
+visionneuse. Sans lui, le lien ouvre le fichier normalement.
+
+## Badges
+
+Les badges de `assets/badges/` sont détourés (marges transparentes et blanches
+retirées) et normalisés en carré. Ils sont affichés petit : celui de Packet
+Tracer n'existe qu'en 150 × 150 px et devient flou au-delà de ~70 px.
+
+La grille des certifications peint ses séparateurs via le fond du conteneur,
+ce qui laisse un aplat gris sur les cellules inoccupées. Un `<div>` neutre en
+fin de grille comble la dernière cellule — à ajuster si le nombre de cartes
+change.
 
 ## Aperçu en local
 
