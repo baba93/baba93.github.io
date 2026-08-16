@@ -49,6 +49,49 @@ a.btn-primary:hover, a.btn-primary:active { color: var(--color-bg) }
 [data-references="off"] #references{display:none}
 [data-mobile-previews="off"] #apercu-mobile{display:none}
 
+/* ── Visionneuse de certificats ─────────────────────────────────────────────
+   L'image est posée en background-image sur un div, et un calque transparent
+   la recouvre : ni « Enregistrer l'image sous », ni glisser-déposer. Cela
+   dissuade la récupération occasionnelle — rien n'empêche une capture d'écran. */
+.viewer{
+  position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;
+  padding:24px;background:color-mix(in srgb, var(--color-neutral-900) 72%, transparent)
+}
+.viewer[hidden]{display:none}
+.viewer-frame{
+  display:flex;flex-direction:column;width:min(1000px,100%);max-height:100%;
+  background:var(--color-bg);border:2px solid var(--color-text)
+}
+.viewer-bar{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:10px 14px;border-bottom:2px solid var(--color-text);background:var(--color-neutral-200)
+}
+.viewer-title{
+  font-family:var(--font-heading);font-weight:800;font-size:13px;
+  letter-spacing:0.06em;text-transform:uppercase
+}
+.viewer-close{
+  border:0;background:transparent;cursor:pointer;padding:2px 6px;
+  font-family:var(--font-heading);font-weight:800;font-size:15px;color:var(--color-text)
+}
+.viewer-close:hover{color:var(--color-accent)}
+.viewer-stage{
+  display:flex;align-items:center;justify-content:center;
+  padding:18px;background:var(--color-neutral-200);overflow:auto
+}
+.viewer-img{
+  display:block;max-width:100%;max-height:76vh;width:auto;height:auto;
+  /* pointer-events:none — le clic droit et le glisser atteignent la scène,
+     jamais l'image : pas de menu « Enregistrer l'image sous ». */
+  pointer-events:none;user-select:none;-webkit-user-drag:none;-webkit-touch-callout:none
+}
+body.viewer-open{overflow:hidden}
+
+@media (max-width:900px){
+  .viewer{padding:12px}
+  .viewer-stage{padding:10px}
+}
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   [data-reveal]{opacity:1;transform:none;transition:none}

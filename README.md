@@ -10,9 +10,34 @@ et un petit fichier JS.
 index.html                   la page (le balisage vient tel quel de la maquette)
 assets/css/design-system.css le design system « Modernist » (tokens + classes .btn/.tag/…)
 assets/css/portfolio.css     les styles de page (bloc <helmet> de la maquette) + états :hover
-assets/js/portfolio.js       bascule FR/EN et apparition des sections au scroll
+assets/js/portfolio.js       bascule FR/EN, visionneuse, apparition au scroll
 assets/*.jpeg|png            portrait et capture DumuniGo
-certificats/*.pdf            diplômes et certificats (20 fichiers)
+certificats/*.jpg            diplômes et certificats en image (20 fichiers)
+sources-pdf/*.pdf            les PDF d'origine — locaux, jamais publiés (.gitignore)
+```
+
+## Certificats
+
+Les certificats ne sont **pas** publiés en PDF. Chaque PDF a été converti en
+JPEG (150 dpi) et s'ouvre dans une visionneuse intégrée : pas de lien vers un
+document, pas de barre d'outils de téléchargement, et `pointer-events:none` sur
+l'image pour que le clic droit n'offre pas « Enregistrer l'image sous ».
+
+À garder en tête : cela décourage la récupération occasionnelle, ça ne la rend
+pas impossible. Une capture d'écran ou les outils de développement suffisent à
+récupérer l'image. La vraie protection contre la réutilisation d'un diplôme,
+c'est le filigrane — dis-le si tu veux que je l'ajoute.
+
+Pour régénérer les images après avoir ajouté un PDF dans `sources-pdf/` :
+
+```bash
+pdftoppm -jpeg -r 150 -jpegopt quality=82 -singlefile sources-pdf/mon-certificat.pdf certificats/mon-certificat
+```
+
+Puis ajouter le lien dans `index.html` avec son `data-cert-title` :
+
+```html
+<a href="certificats/mon-certificat.jpg" data-cert-title="Nom affiché dans la visionneuse">…</a>
 ```
 
 ## Aperçu en local
@@ -30,7 +55,7 @@ Ils reprennent les props `showReferences` / `showMobilePreviews` de la maquette.
 Ils se pilotent depuis les attributs du `<div>` racine, ligne 21 de `index.html` :
 
 ```html
-<div data-lg="fr" data-references="on" data-mobile-previews="off" …>
+<div data-lg="fr" data-references="off" data-mobile-previews="off" …>
 ```
 
 | Attribut               | Valeurs      | Effet                                                        |
@@ -42,6 +67,10 @@ Ils se pilotent depuis les attributs du `<div>` racine, ligne 21 de `index.html`
 `data-mobile-previews` est sur `off` : ce bloc est une aide de conception
 (il montre le rendu à 390 px), pas du contenu de portfolio. Le reste de la page
 est bien responsive de son côté. Passer l'attribut sur `on` le réaffiche.
+
+`data-references` est sur `off` : la section publiait les téléphones et e-mails
+personnels de deux anciens responsables. À ne repasser sur `on` qu'avec leur
+accord — sur un site public, ces coordonnées sont indexées et récoltées.
 
 ## Traduction FR/EN
 
